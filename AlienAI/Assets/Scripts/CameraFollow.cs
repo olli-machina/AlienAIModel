@@ -6,6 +6,7 @@ public class CameraFollow : MonoBehaviour
 {
     Transform playerTransform;
     public Vector3 cameraOffset;
+    public float smoothFactor = 0.5f, rotationSpeed = 5.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -17,5 +18,17 @@ public class CameraFollow : MonoBehaviour
     void Update()
     {
         transform.position = playerTransform.position + cameraOffset;
+        FaceMouse();
+    }
+
+    void FaceMouse()
+    {
+        Quaternion canTurnAngle = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationSpeed, Vector3.up);
+        cameraOffset = canTurnAngle * cameraOffset;
+
+        Vector3 newPos = playerTransform.position + cameraOffset;
+        transform.position = Vector3.Slerp(transform.position, newPos, smoothFactor);
+
+        transform.LookAt(playerTransform);
     }
 }
