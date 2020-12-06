@@ -27,7 +27,10 @@ public class Pathfinding : MonoBehaviour
         if (searchLocations.Length == 0)
             return;
         nav.destination = searchLocations[nextPoint].position;
-        nextPoint = Random.Range(0, 3);// % searchLocations.Length;
+        nextPoint = Random.Range(0, searchLocations.Length);
+        if (searchLocations[nextPoint].position == nav.destination)
+            nextPoint = (nextPoint + 1) % searchLocations.Length;
+        Debug.Log(nextPoint);
     }
 
     // Update is called once per frame
