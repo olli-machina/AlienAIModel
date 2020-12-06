@@ -22,6 +22,7 @@ public class HuntingBehavior : MonoBehaviour
             Patrol();
 
         transform.position = Vector3.MoveTowards(transform.position, destination, step);
+        transform.LookAt(destination, Vector3.up);
     }
 
     int ChooseSearch()

@@ -4,48 +4,73 @@ using UnityEngine;
 
 public class HunterFOV : MonoBehaviour
 {
-    GameObject player;
-    public float fovRange = 68.0f;
-    float minDetectDistance;
-    float rayRange;
-    Vector3 facingDirection = Vector3.zero;
-    public bool pursue = false;
+    public Transform player;
+    public float maxAngle, maxRadius;
+    private bool isInFOV = false;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        player = GameObject.Find("Player");
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDrawGizmos()
     {
-        pursue = CanSeePlayer();
-        if(pursue)
-        {
-            Hunt();
-        }
+        Gizmos.color = Color.yellow; //draw sphere of detection
+        Gizmos.DrawWireSphere(transform.position, maxRadius);
+
+        Vector3 fovLine1 = Quaternion.AngleAxis(maxAngle, transform.up) * transform.forward * maxRadius;
+        Vector3 fovLine2 = Quaternion.AngleAxis(-maxAngle, transform.up) * transform.forward * maxRadius;
+
+        Gizmos.color = Color.blue; //both upper and lower FOV bounds
+        Gizmos.DrawRay(transform.position, fovLine1);
+        Gizmos.DrawRay(transform.position, fovLine2);
+
+        if(!isInFOV)
+            Gizmos.color = Color.red; //ray to player if not seen
+        else
+            Gizmos.color = Color.green; //ray to player if seen
+        Gizmos.DrawRay(transform.position, (player.position - transform.position).normalized * maxRadius);
+
+        Gizmos.color = Color.black; //ray facing forward
+        Gizmos.DrawRay(transform.position, transform.forward * maxRadius);
     }
 
-    public bool CanSeePlayer()
+    public static bool inFOV (Transform checkingObj, Transform target, float maxAngle, float maxRadius)
     {
-        RaycastHit hit;
-        facingDirection = player.transform.position - transform.position;
-        float distToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        Collider[] overlaps = new Collider[10]; //everything in FOV
+        int count = Physics.OverlapSphereNonAlloc(checkingObj.position, maxRadius, overlaps);
 
-        if(Vector3.Angle(facingDirection, transform.forward) <= fovRange * 0.5f)
+        for(int i = 0; i < count; i++)
         {
-            if (Physics.Raycast(transform.position, facingDirection, out hit, minDetectDistance))
+            if(overlaps[i] != null)
             {
-                return (hit.transform.CompareTag("Player"));
+                if(overlaps[i].transform == target) //if the target is in the FOV
+                {
+                    Vector3 directionBetween = (target.position - checkingObj.position).normalized;
+                    directionBetween.y *= 0; //height not a factor
+
+                    float angle = Vector3.Angle(checkingObj.forward, directionBetween);
+                    if(angle <= maxAngle) //if in the FOV angle zone
+                    {
+                        Ray ray = new Ray(checkingObj.position, target.position - checkingObj.position);
+                        RaycastHit hit;
+                        if(Physics.Raycast(ray, out hit, maxRadius)) //if not behind something
+                        {
+                            if(hit.transform == target) //if it's the target/player
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
             }
         }
-     
+
         return false;
     }
 
-    public void Hunt()
+    private void Update()
     {
-
+        isInFOV = inFOV(transform, player, maxAngle, maxRadius);
     }
 }
