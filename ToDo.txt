@@ -1,0 +1,21 @@
+Work On:
+Behavior Trees - Alien "Learns" from player actions
+Player Movement- move forward with camera
+
+Search:
+Those nearby locations are then fed into the Alien AI 
+and it chooses a path to visit them all in a non-optimal order. 
+Instead, it prioritises them in order of their visibility to the Alien. 
+Meaning, that if a certain point is most visible to the Alien and it's 
+the furthest away, it will still be visited first. - 2 Game
+
+Is Complete:
+Hunter FOV
+NavMesh
+3rd Person Camera
+Build Map
+
+
+Only if Time:
+Director- detect "fear guage" of player to control AI to be Active/Passive
+Senses - Hunter uses sight AND hearing to hunt

@@ -12,17 +12,17 @@ public class HuntingBehavior : MonoBehaviour
     void Start()
     {
         step = speed * Time.deltaTime;
-        Patrol();
+        //Patrol();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.position == destination)
-            Patrol();
+        //if (transform.position == destination)
+        //    Patrol();
 
-        transform.position = Vector3.MoveTowards(transform.position, destination, step);
-        transform.LookAt(destination, Vector3.up);
+        //transform.position = Vector3.MoveTowards(transform.position, destination, step);
+        //transform.LookAt(destination, Vector3.up);
     }
 
     int ChooseSearch()

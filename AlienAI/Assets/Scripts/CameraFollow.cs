@@ -6,7 +6,7 @@ public class CameraFollow : MonoBehaviour
 {
     Transform playerTransform;
     public Vector3 cameraOffset;
-    public float smoothFactor = 0.5f, rotationSpeed = 5.0f;
+    public float smoothFactor = 0.5f, rotationSpeedX = 5.0f, rotationSpeedY = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -23,8 +23,9 @@ public class CameraFollow : MonoBehaviour
 
     void FaceMouse()
     {
-        Quaternion canTurnAngle = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationSpeed, Vector3.up);
-        cameraOffset = canTurnAngle * cameraOffset;
+        Quaternion canTurnAngle = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationSpeedX, Vector3.up);
+        Quaternion canTurnAngleY = Quaternion.AngleAxis(Input.GetAxis("Mouse Y") * rotationSpeedY, Vector3.left);
+        cameraOffset = (canTurnAngle * canTurnAngleY) * cameraOffset;
 
         Vector3 newPos = playerTransform.position + cameraOffset;
         transform.position = Vector3.Slerp(transform.position, newPos, smoothFactor);
