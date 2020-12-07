@@ -17,6 +17,9 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!playerTransform)
+            playerTransform = GameObject.Find("Player").GetComponent<Transform>();
+
         transform.position = playerTransform.position + cameraOffset;
         FaceMouse();
     }
