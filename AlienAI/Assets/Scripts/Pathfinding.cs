@@ -9,6 +9,8 @@ public class Pathfinding : MonoBehaviour
     public List<Transform> advancedLocations; //for when probability stars changing
     private NavMeshAgent nav;
     private int nextPoint;
+    public int seenCount = 0;
+    private bool isSeen = false, notSeen = false;
     public bool seePlayer = false, fleeUsed = false;
     public float followTimer, followTimerStandard = 1.5f;
     GameObject player;
@@ -34,12 +36,27 @@ public class Pathfinding : MonoBehaviour
     private void FixedUpdate()
     {
         seePlayer = HunterFOV.inFOV(transform, player.transform, 45f, 20f, 12f, 5f);
-        
+
         if (seePlayer)
+        {
+            isSeen = true;
             Pursue();
+        }
 
         else if (!nav.pathPending && nav.remainingDistance < 1f)
+        {
+            notSeen = true;
             GoToNextLocation();
+        }
+
+        if (isSeen && notSeen) //has been in and out of FOV, add to counter
+        {
+            seenCount++;
+            isSeen = false;
+            notSeen = false;
+            if (seenCount >= 5)
+                FleeAbility();
+        }
     }
 
     public void GoToNextLocation()
@@ -73,7 +90,6 @@ public class Pathfinding : MonoBehaviour
         if (seePlayer)
         {
             followTimer -= Time.deltaTime;
-            Debug.Log("seen " + followTimer);
             if (followTimer <= 0f)
             {
                 manager.Abilities(7); //if following long enough, unlock that ability
@@ -95,7 +111,7 @@ public class Pathfinding : MonoBehaviour
     {
         if (!fleeUsed)
         {
-            nav.speed += 3;
+            nav.speed += 5;
             fleeUsed = true;
         }
     }

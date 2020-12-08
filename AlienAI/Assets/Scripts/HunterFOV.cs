@@ -116,6 +116,5 @@ public class HunterFOV : MonoBehaviour
     public void FollowingAbility()
     {
         maxBackRadius += .5f;
-        Debug.Log(maxBackRadius);
     }
 }

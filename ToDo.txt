@@ -1,22 +1,22 @@
-Work On:
-Player Movement- move forward with camera
+Done for Demo:
+- AI randomly searches, no set path
+- AI uses NavMesh to navigate map
+- FOV fully implemented
+- Can see behind itself (limited distance)
+- Will pursue the player when seen
+- AI "Learns" from player actions
+	- Increase probability of places(6 total) player hides more than once
+	- Increase FOV behind hunter if player continues to follow them
+	- Increase hunter speed if player goes in and out of sight
+- AI will go back to searching if the player hides
 
-Search:
-Those nearby locations are then fed into the Alien AI 
-and it chooses a path to visit them all in a non-optimal order. 
-Instead, it prioritises them in order of their visibility to the Alien. 
-Meaning, that if a certain point is most visible to the Alien and it's 
-the furthest away, it will still be visited first. - 2 Game
+Future Development:
+- Make the chosen search points according to visibility, not completely random
+- Add Director, send hunter away if too stressful for player
+- Add sensors, hunter reacts to noises and movements
+- Improve player controls and clean details
 
-Is Complete:
-Hunter FOV
-NavMesh
-3rd Person Camera
-Build Map
-Pursue
-Increasing probability of visiting frequent hiding places
-
-
-Only if Time:
-Director- detect "fear guage" of player to control AI to be Active/Passive
-Senses - Hunter uses sight AND hearing to hunt
+Xenomorph Model:
+"Xenomorph" by Filip is licensed under Creative Commons Attribution. 
+https://skfb.ly/6SLzE To view a copy of this license, 
+visit http://creativecommons.org/licenses/by/4.0/.

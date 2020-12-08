@@ -2763,7 +2763,7 @@ MonoBehaviour:
   maxAngle: 45
   maxRadius: 12
   maxBackAngle: 220
-  maxBackRadius: 5
+  maxBackRadius: 7
 --- !u!195 &1967011480
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2774,7 +2774,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 15
+  m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 99
   m_AngularSpeed: 120
@@ -2806,8 +2806,11 @@ MonoBehaviour:
   - {fileID: 1322911610}
   - {fileID: 1362696368}
   advancedLocations: []
+  seenCount: 0
   seePlayer: 0
   fleeUsed: 0
+  followTimer: 0
+  followTimerStandard: 1.5
 --- !u!1 &2040748408
 GameObject:
   m_ObjectHideFlags: 0
