@@ -10,13 +10,20 @@ public class Pathfinding : MonoBehaviour
     private NavMeshAgent nav;
     private int nextPoint;
     public bool seePlayer = false, fleeUsed = false;
+    public float followTimer, followTimerStandard = 1.5f;
     GameObject player;
+    GameManager manager;
+    HunterFOV fov;
 
     // Start is called before the first frame update
     void Start()
     {
         nav = GetComponent<NavMeshAgent>();
         player = GameObject.Find("Player");
+        manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        fov = GetComponent<HunterFOV>();
+
+        followTimer = followTimerStandard;
         for(int i = 0; i < searchLocations.Length; i++)
         {
             advancedLocations.Add(searchLocations[i]);
@@ -27,11 +34,10 @@ public class Pathfinding : MonoBehaviour
     private void FixedUpdate()
     {
         seePlayer = HunterFOV.inFOV(transform, player.transform, 45f, 20f, 12f, 5f);
-        if(seePlayer)
-        {
-            //Debug.Log("Seen");
+        
+        if (seePlayer)
             Pursue();
-        }
+
         else if (!nav.pathPending && nav.remainingDistance < 1f)
             GoToNextLocation();
     }
@@ -63,6 +69,21 @@ public class Pathfinding : MonoBehaviour
     {
         if(!player)
             player = GameObject.Find("Player");
+
+        if (seePlayer)
+        {
+            followTimer -= Time.deltaTime;
+            Debug.Log("seen " + followTimer);
+            if (followTimer <= 0f)
+            {
+                manager.Abilities(7); //if following long enough, unlock that ability
+                FollowingAbility();
+                followTimerStandard++;
+                followTimer = followTimerStandard; //make it take longer to advance next time
+            }
+        }
+        else
+            followTimer = followTimerStandard;
     }
 
     public void moreLikely(int index) //alien "learns" from player actions- searches in their common hiding spots
@@ -79,8 +100,8 @@ public class Pathfinding : MonoBehaviour
         }
     }
 
-    public void BackAbility()
+    public void FollowingAbility()
     {
-
+        fov.FollowingAbility();
     }
 }

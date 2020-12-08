@@ -5,12 +5,13 @@ using UnityEngine;
 public class HunterFOV : MonoBehaviour
 {
     public Transform player;
+    GameManager manager;
     public float maxAngle, maxRadius, maxBackAngle, maxBackRadius;
     private bool isInFOV = false;
 
     private void Start()
     {
-
+        manager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     private void OnDrawGizmos()
@@ -53,7 +54,7 @@ public class HunterFOV : MonoBehaviour
         int count = Physics.OverlapSphereNonAlloc(checkingObj.position, maxRadius, overlaps);
         int behindCount = Physics.OverlapSphereNonAlloc(checkingObj.position, maxBackRadius, behind);
 
-        for(int i = 0; i < count; i++)
+        for(int i = 0; i < count; i++) //for behind the hunter
         {
             if(behind[i] != null)
             {
@@ -61,7 +62,7 @@ public class HunterFOV : MonoBehaviour
                 directionBetween.y *= 0; //height not a factor
 
                 float angle = Vector3.Angle(checkingObj.forward, directionBetween);
-                if (angle >= maxBackAngle) //> or <?
+                if (angle >= maxBackAngle)
                 {
                     if (behind[i].transform == target)
                     {
@@ -77,7 +78,7 @@ public class HunterFOV : MonoBehaviour
                     }
                 }
             }
-            else if(overlaps[i] != null)
+            else if(overlaps[i] != null) //for in front of the hunter
             {
                 if(overlaps[i].transform == target) //if the target is in the FOV
                 {
@@ -108,6 +109,13 @@ public class HunterFOV : MonoBehaviour
     {
         if (player == null)
             player = GameObject.Find("Player").GetComponent<Transform>();
+
         isInFOV = inFOV(transform, player, maxAngle, maxBackAngle, maxRadius, maxBackRadius);
+    }
+
+    public void FollowingAbility()
+    {
+        maxBackRadius += .5f;
+        Debug.Log(maxBackRadius);
     }
 }

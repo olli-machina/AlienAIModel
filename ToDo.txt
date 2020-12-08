@@ -1,5 +1,4 @@
 Work On:
-Behavior Trees - Alien "Learns" from player actions
 Player Movement- move forward with camera
 
 Search:
@@ -15,6 +14,7 @@ NavMesh
 3rd Person Camera
 Build Map
 Pursue
+Increasing probability of visiting frequent hiding places
 
 
 Only if Time:

@@ -40,15 +40,11 @@ public class GameManager : MonoBehaviour
             case 6:
                 pathfinding.FleeAbility();
                 break;
-            case 7:
-                BackAbility();
-                break;
+            //case 7:
+            //    BackAbility();
+            //    break;
         }
         abilityIcons[index].color = Color.green;
-    }
-    void BackAbility()
-    {
-
     }
 
 }
