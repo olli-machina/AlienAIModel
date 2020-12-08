@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\HunterFOV.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Pathfinding.cs" />
+    <Compile Include="Assets\Scripts\AbiliyTriggers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
