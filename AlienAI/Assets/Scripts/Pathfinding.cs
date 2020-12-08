@@ -40,9 +40,9 @@ public class Pathfinding : MonoBehaviour
     {
         if (advancedLocations.Count == 0)
             return;
-        nav.destination = searchLocations[nextPoint].position;
+        nav.destination = advancedLocations[nextPoint].position;
         nextPoint = Random.Range(0, advancedLocations.Count);
-        if (searchLocations[nextPoint].position == nav.destination)
+        if (advancedLocations[nextPoint].position == nav.destination)
             nextPoint = (nextPoint + 1) % advancedLocations.Count;
 
     }
@@ -67,9 +67,7 @@ public class Pathfinding : MonoBehaviour
 
     public void moreLikely(int index) //alien "learns" from player actions- searches in their common hiding spots
     {
-        Debug.Log(advancedLocations.Count);
         advancedLocations.Add(searchLocations[index]);
-        Debug.Log(advancedLocations.Count);
     }
 
     public void FleeAbility() //makes hunter faster if player keeps running away

@@ -109,6 +109,5 @@ public class HunterFOV : MonoBehaviour
         if (player == null)
             player = GameObject.Find("Player").GetComponent<Transform>();
         isInFOV = inFOV(transform, player, maxAngle, maxBackAngle, maxRadius, maxBackRadius);
-        Debug.Log("In FOV " + isInFOV);
     }
 }

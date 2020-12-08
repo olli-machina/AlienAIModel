@@ -23,12 +23,14 @@ public class AbiliyTriggers : MonoBehaviour
             timer -= Time.deltaTime;
             if(timer <= 0f)
             {
-                Debug.Log("Up");
                 counter++;
                 count = false;
                 timer = 1f;
                 if (counter >= 2)
+                {
                     manager.Abilities(index);
+                    counter = 0;
+                }
             }
         }
         else
@@ -39,7 +41,6 @@ public class AbiliyTriggers : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            Debug.Log("Touch");
             count = true;
         }
     }

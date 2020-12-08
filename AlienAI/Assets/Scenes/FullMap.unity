@@ -262,6 +262,7 @@ MonoBehaviour:
   index: 1
   counter: 0
   timer: 3
+  count: 0
 --- !u!65 &184404253
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -861,6 +862,7 @@ MonoBehaviour:
   index: 4
   counter: 0
   timer: 3
+  count: 0
 --- !u!65 &658354275
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1531,6 +1533,7 @@ MonoBehaviour:
   index: 5
   counter: 0
   timer: 3
+  count: 0
 --- !u!65 &1380199628
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1914,7 +1917,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 8594246927675420496, guid: 7e251aa5ed5d0814791b855015302f6f, type: 3}
-  abilityTriggers: []
+  abilityTriggers:
+  - {fileID: 1613527383}
+  - {fileID: 184404250}
+  - {fileID: 1944686502}
+  - {fileID: 2061266222}
+  - {fileID: 658354272}
+  - {fileID: 1380199625}
+  abilityIcons:
+  - {fileID: 1083046858}
+  - {fileID: 1539456651}
+  - {fileID: 606099542}
+  - {fileID: 1734049226}
+  - {fileID: 1385861115}
+  - {fileID: 1616910442}
+  - {fileID: 969839171}
+  - {fileID: 331621577}
 --- !u!4 &1557668634
 Transform:
   m_ObjectHideFlags: 0
@@ -1976,6 +1994,7 @@ MonoBehaviour:
   index: 0
   counter: 0
   timer: 3
+  count: 0
 --- !u!65 &1613527386
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2555,6 +2574,7 @@ MonoBehaviour:
   index: 2
   counter: 0
   timer: 3
+  count: 0
 --- !u!65 &1944686505
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2871,6 +2891,7 @@ MonoBehaviour:
   index: 3
   counter: 0
   timer: 3
+  count: 0
 --- !u!65 &2061266225
 BoxCollider:
   m_ObjectHideFlags: 0

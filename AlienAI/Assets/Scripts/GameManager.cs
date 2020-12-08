@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject playerPrefab;
     GameObject player;
     public GameObject[] abilityTriggers;
+    public Image[] abilityIcons;
     Pathfinding pathfinding;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
+        pathfinding = GameObject.Find("Hunter").GetComponent<Pathfinding>();
     }
 
     // Update is called once per frame
@@ -41,6 +44,7 @@ public class GameManager : MonoBehaviour
                 BackAbility();
                 break;
         }
+        abilityIcons[index].color = Color.green;
     }
     void BackAbility()
     {
